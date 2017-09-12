@@ -1,0 +1,109 @@
+数据类型
+ 	5种基本类型：Undefined、Null、Boolean、Number、String
+ 	1种复杂类型：Object
+  1. typeof 操作符
+  	"underfined","boolean","string","number","object","function"
+  2. Undefined 类型
+  	只声明了变量message，但未对其进行初始化。
+  	对于尚未声明过的变量，只能执行typeof操作符检测其数据类型
+  	var message;
+  	console.log(typeof message); -- "undefined"
+  	console.log(typeof age); -- "undefined"
+  3. Null 类型
+    var car = null;
+    console.log(typeof car); -- "object"
+    undefined值是派生自null值的，对它们的相等性测试要返回true
+    console.log(null == undefined) -- "true"
+    只要在意保存对象的变量还没有真正保存对象，就应该明确地让该变量保存null值
+  4. Boolean 类型
+    数据类型		true			false
+    Boolean 		true			false
+    String 			非空字符串		""
+    Number 			非零数字值（包括无穷大） 0和NaN
+    Object 			任何对象 		null
+    Undefined 		n/a 			undefined
+  5. Number 类型
+    八进制数 -- 第一位必须是零 -- 070(56)
+    十六进制 -- 以0x开头 -- 0xA(10)
+    浮点数值：
+    浮点数值的最高精度是17位小数
+    数值范围：
+    ECMAScript能够表示最小数值Number.MIN_VALUE = 5e-324
+    				  最大数值Number.MAX_VALUE = 1.7976931348623157e+308
+    超出JavaScript数值范围的值自动转换为特殊的值Infinity
+    					负无穷 -Infinity - Number.POSITIVE_INFINITY
+    					正无穷 Infinity - Number.NEGATIVE_INFINITY
+    确定是不是有穷的方法 isFinite()
+    NaN：
+    0/0 -- "NaN"
+    3/0 -- "Infinity"
+    任何涉及NaN的操作都会返回NaN
+    NaN与任何值都不想等，包括NaN本身
+    数值转换：
+    Number():可以用于任何数据类型
+        规则：
+          1.如果是Boolean值，true和false将分别被转换为1和0
+          2.如果是数字值，只是简单的传入和返回
+          3.如果是null值，返回0
+          4.如果是undefined，返回NaN
+          5.如果是字符串，遵循下列规则：
+              如果字符串中只包含数字，则将其转换为十进制数值，"1"->1,"123"->123,"011"->11(前导零被忽略)
+              如果字符串中包含有效的浮点格式，如"1.1"，则将其转换为对应的浮点数值(同样，忽略前导零)
+              如果字符串中包含有效的十六进制格式，例如"oxf"，则将其转换为相同大小的十进制整数值
+              如果字符串是空的，则将其转换为0
+              如果字符串中包含除上述格式之外的字符，则将其转换为NaN
+          6.如果是对象，则调用对象的valueOf方法，然后依照前面的规则返回值。如果转换的结果是NaN，则调用对象的toString方法，然后再次依照前面的规则转换返回的字符串值
+          example：
+              var num1 = Number("Hello world!");
+              var num2 = Number("");
+              var num3 = Number("00001");
+              var num4 = Number(true);
+    parseInt()和parseFloat():专门用于把字符串转换成数值
+        parseInt():
+          在转换字符串时，会忽略字符串前面的空格，直至找到第一个非空格字符。如果第一个字符不是数字字符或者负号，parseInt()就会返回NaN，所以用parseInt转换空字符串会返回NaN(Number对空字符串返回0)。如果第一个字符是数字字符，parseInt会继续解析直到解析完所有后续字符或者遇到了一个非数字字符。
+          parseInt()也能够失败出各种整数格式(十进制、八进制和十六进制)。
+          parseInt()的第二个参数：转换时使用的基数(2,10,8,16)
+  6. String 类型
+        如果值有toString方法，则调用该方法并返回相应的结果
+        如果值是null，则返回"null"
+        如果值是undefined，则返回"undefined"
+  7. Object 类型
+        Object的每个实例都具有下列属性和方法：
+           constructor -- 保存着用于创建当前对象的函数。
+           hasOwnProperty(propertyName) -- 用于检查给定的属性在当前对象实例中(而不是在实例的原型中)是否存在。作为参数的propertyName必须以字符串形式指定。
+           isPrototypeOf(Object) -- 用于检查传入的对象是否是另一个对象的原型
+           propertyIsEnumerable(propertyName) -- 用于检查给定的属性是否能够使用for-in语句来枚举。与hasOwnProperty()方法一样，作为参数的属性名必须以字符串形式指定。
+           toString() -- 返回对象的字符串表示。
+           valueOf() -- 返回对象的字符串、数值或布尔值表示。通常与toString()方法的返回值相同。
+操作符
+  1. 布尔操作符
+      逻辑与(&&)：
+        逻辑与操作可以应用于任何类型额操作数，而不仅仅是布尔值。在有一个操作数不是布尔值的情况下，逻辑与操作就不一定返回布尔值，此时，遵循下列规则：
+            如果第一个操作数是对象，则返回第二个操作数；
+            如果第二个操作数是对象，则只有在第一个操作数的求值结果为true的情况下才会返回该对象；
+            如果两个操作数都是对象，则返回第二个操作数；
+            如果有一个操作数是null，则返回null；
+            如果有一个操作数是NaN，则返回NaN；
+            如果有一个操作数是undefined，则返回undefined。
+      逻辑或(||)：
+        如果第一个操作数是对象，则返回第一个操作数；
+        如果第一个操作数的求值结果为false，则返回第二个操作数；
+        如歌连个操作数都是对象，则返回的一个操作数；
+        如果两个操作数都是null，则返回null；
+        如果两个操作数都是NaN，则返回NaN；
+        如果两个操作数都是undefined，则返回undefined。
+  2. 乘性运算符
+      乘法：
+        如果有一个操作数是NaN，则结果是NaN；
+        如果是Infinity与0相乘，则结果是NaN；
+        如果是Infinity与非0数值相乘，则结果是Infinity或-Infinity，取决于有符号操作数的符号；
+        如果是Infinity与Infinity相乘，则结果是Infinity；
+        如果有一个操作数不是数值，则在后台调用Number()将其转换为数值，然后在应用上面的规则。
+      除法：
+        如果有一个操作数是NaN，则结果是NaN；
+        如果是Infinity/Infinity，则结果是NaN；
+        如果是任意数值/Infinity，则结果是Infinity；
+        如果是0/0，则结果是NaN；
+        如果是非零的优先数值/0，则结果是Infinity或-Infinity；
+        如果是任何非零数值/Infinity，则结果是Infinity或-Infinity；
+        如果有一个操作数不是数值，则在后台调用Number()将其转换为数值，然后在应用上面的规则。
