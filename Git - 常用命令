@@ -1,0 +1,9 @@
+Git - 常用命令
+
+1 Git 初始化
+	
+	git --version  # 查看git 版本号
+	(1) 告诉Git当前用户的姓名和邮件地址
+	git config --global user.name "jason" # 配置全局用户名
+	git config --global user.mail "1696732332@qq.com" # 配置全局邮件地址
+	(2)
