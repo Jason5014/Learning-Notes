@@ -1,0 +1,188 @@
+第二章 CSS格式指导标准
+ 2.1 CSS编写格式
+ 	- 单行与多行
+ 	- 缩进
+ 	- 制表符不空格
+ 	- 冒号与分号
+ 2.2 注释和CSS元数据
+ 	/* 这里是CSS注释 */
+ 	- 现成的标准：CSSDOC
+ 	/**
+ 	* Short descrition
+ 	* Long descrition (this can have multiple lines and contain <p> tags
+ 	* 
+ 	* @tag (optioal))
+ 	*/
+ 	/**
+ 	* Typography
+ 	* 
+ 	* @section typography
+ 	*/
+ 	- 文件信息
+ 	/*
+ 	Style sheet for : Igloo Refrigerator Parts Inc Christmas website (样式表用途：Igloo冰箱配件公司圣诞网站)
+
+ 	Create by John Doe, http://domain.com, on 12.28.2009 (创建人，域名，创建日期)
+
+ 	Importing reset files: /css/resets/master.css (导入的重置文件)
+
+ 	Namespace: use the "xmas" prefix for all the  classes and IDs referanced in this file. For examle: .xmasLatestNews or #xmasLatestNews (命名空间：本文件内所有class和id名称都使用xmas前缀，例如： .xmasLatestNews 或 #xmasLatestNews)
+
+ 	*/
+ 	CSSDOC标准：
+ 	/**
+ 	* Christmas theme
+ 	* CSS theme for the Christmas version of the Igloo Refrigerator Parts Inc website 
+ 	* This theme has been developed by Design Team at IRP Inc and should be used between the dates of November 7th and January 7th
+ 	* 
+ 	* @project		IRP Christmas Site
+ 	* @author		Design Team at IRP Inc
+ 	* @copyright	2010 Igloo Refrigerator Parts Inc
+ 	* @cssdoc 		version 1.0-pre 
+ 	*/
+ 	- 内容目录
+ 	/* 内容目录：
+ 	1. 可重用的class
+ 	2. 结构元素
+ 	3. 颜色和字体排版
+ 		标题
+ 		正文文字
+ 		引用文字
+ 	4. 视觉媒体
+ 	5. 部件
+ 	*/
+ 	- 配色方案
+ 	/* Color referance:
+
+ 	Main text		#111111
+ 	Headings		#999999
+ 	:link 			#9f0000
+ 	:visited 		#720000
+ 	:hover,
+ 	:active,
+ 	:focus			#004899
+
+ 	*/
+ 	/**
+ 	* Christmas theme
+ 	* CSS theme for the Christmas version of the Igloo Refrigerator Parts Inc website 
+ 	* This theme has been developed by Design Team at IRP Inc and should be used between the dates of November 7th and January 7th
+ 	* 
+ 	* @project		IRP Christmas Site
+ 	* @author		Design Team at IRP Inc
+ 	* @copyright	2010 Igloo Refrigerator Parts Inc
+ 	* @cssdoc 		version 1.0-pre 
+ 	* @colordef		#111111; main text
+ 	* @colordef 	#999999; headings
+ 	* @colordef 	#9f0000; links
+ 	*/
+ 	- 尺寸单位
+ 	#main{
+ 		margin-left: 220px; /* 边栏宽度+20像素边距 */
+ 	}
+ 	aside{
+ 		width:200px;
+ 		float:left;
+ 	}
+ 	h2{
+ 		font-size:18px;
+ 		line-height:1.167; /* 21(原始行高) / 18(原始行高)
+ 	}
+ 	2.4 class和id命名
+ 	- 可接受的字符
+ 	下划线
+ 	左右斜杠 \和/都是不可接受的字符
+ 	星号 *是不可接受的字符
+ 	以数字打头的名称 有些浏览器接受，但大多数不接受
+ 	以连字符打头的名称 有些浏览器接受，但大多数不接受
+ 	- 惯例
+	header ()
+	nav/navigation
+	sidebar/aside/secondaryContent
+	footer
+	main
+	wrapper
+	content/mainContent
+	col/column
+	submit
+	error
+	warning
+	post
+	actions
+	- 大小写 
+	1.驼峰式大小写
+	heroImage
+	pdfLink
+	linkToPDF
+	2.连字符
+	hero-image
+	primary-navigation
+ 2.5 命名空间
+	CSS3命名空间模块已经进入W3C的候选推荐阶段，目前@namespace已经获得uoyou现代浏览器的支持，包括IE9
+	@namespace irpb "http://example.com/irpb"
+	irpb|div{
+		
+	}
+	|div{
+		
+	}
+	*|div{
+		
+	}
+第三章 基本原理
+ 3.1 层叠：来源、重要性和继承
+ 	来源
+ 	用代理样式表：用户访问我们的代码所用的设备，通常境况下是Web浏览器中设定默认样式
+ 	用户样式表：基于用户浏览器的特殊设置应用于页面的样式表
+ 	作者样式表
+ 	重要性
+ 	标为important的用户声明
+ 	标为important的作者声明
+ 	作者声明
+ 	用户声明
+ 	用户代理声明
+ 	继承
+ 	W3C规范中解释了用户代理处理继承的方式。
+ 	一个属性的最终值是四步计算的结果：
+ 	首先，通过指定来确定值（指定值）；
+ 	其次，分解为一个继承值（计算值）；
+ 	再次，如果有必要的话转换成为绝对值（采用值）；
+ 	最后，根据本地环境的限制进行转化（实际值）。
+ 	指定值：
+ 	计算值：
+ 	采用值：
+ 	实际值：
+ 3.2 特殊性
+ 	- 特殊性计算
+ 	根据W3C规范：特殊性的计算使用四个字母a,b,c,d来代表重要性依次递减
+ 	a 如果该声明是在style属性中定义的，则是1，否则为0
+ 	b 等于id选择器的数目
+ 	c 等于属性选择器、class和伪class的数量
+ 	d 等于元素名和为元素的数目
+ 	非CSS语法的标记（如font属性），特殊性都归为0
+ 	<session style="padding-bottom:10px;"> 	// 1,0,0,0
+ 3.3 浏览器特定CSS
+ 	- 补丁和滤镜
+ 	1. 盒模型补丁
+ 	IE5和IE5.5（它们不能解析子选择器>）
+ 	.box{
+ 		width:600px;
+ 		voice-family:"\"}\"";
+ 		voice-family:inherit;
+ 		width:560p;
+ 	}
+ 	html>body .box{
+ 		width:560px;
+ 	}
+ 	2. 下划线补丁
+ 	对于IE6及以下版本的浏览器,它们会忽略下划线当做正常属性来解析，用第二个值代替第一个
+ 	#logo{
+ 		background-image:url(logo.png);
+ 		_background-image:url(logo.png);
+ 	}
+ 	3. 星号补丁
+ 	针对IE7及以下版本
+ 	session{
+ 		width:860px;
+ 		*width:960px;
+ 	}
